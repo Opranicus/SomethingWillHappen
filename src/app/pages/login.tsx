@@ -29,12 +29,7 @@ export default function Login() {
                     onChangeText={setPassword}
                     secureTextEntry
                 />
-
-                <Text style={styles.display} >
-                    Hello, {display}
-                </Text>
-
-                
+  
             </View>
 
             <Pressable style={styles.button} onPress={()=> {
@@ -51,8 +46,8 @@ export default function Login() {
             </Pressable>
 
             <View style={styles.link}>
-                <Text>Dont have an account? </Text>
-                <Link href="/pages/sign-in">Sign-Up</Link>
+                <Text style={styles.textAcc}>Dont have an account? </Text>
+                <Link style={styles.href} href="/pages/sign-in">Sign-Up</Link>
             </View>
             
             <Button color='#0ae1f4' title="Go back" onPress={() => router.push('/')} />
@@ -72,6 +67,16 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 24,
         fontWeight: 'bold',
+    },
+
+    textAcc: {
+        color: '#fff',
+        fontSize: 18,
+    },
+
+    href: {
+        color: '#1008b1',
+        fontSize: 18,
     },
 
     textFieldsContainer: {
@@ -101,15 +106,12 @@ const styles = StyleSheet.create({
         fontSize: 24,
     },
 
-    display: {
-        color: '#fff',
-        fontSize: 24,
-    },
 
     link:{
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 5,
+        marginBottom: 23
     }
 })
