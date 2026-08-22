@@ -1,11 +1,11 @@
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 
-export default function () {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+export default function SignUp() {
+    const [signemail, setEmail] = useState('');
+    const [signpassword, setPassword] = useState('');
 
     return (
         <View style={styles.container}>
@@ -14,7 +14,7 @@ export default function () {
                 <TextInput
                     style={styles.input}
                     placeholder='Email'
-                    value={email}
+                    value={signemail}
                     onChangeText={setEmail}
 
                 />
@@ -22,7 +22,7 @@ export default function () {
                 <TextInput
                     style={styles.input}
                     placeholder='Password'
-                    value={password}
+                    value={signpassword}
                     onChangeText={setPassword}
                     secureTextEntry
 
@@ -30,7 +30,19 @@ export default function () {
 
             </View>
 
-        <Pressable style={styles.buttonSign}>
+        <Pressable style={styles.buttonSign} onPress={()=> {
+            if (signemail === '' || signpassword === ''){
+                alert("All fields are required.");
+            }
+
+            else{
+                router.push({
+                    pathname: '/pages/login',
+                    params: {Email: signemail, Password: signpassword},
+                });
+            
+            }
+        }}>
             <Text style={styles.textSign}>Sign-In</Text>
         </Pressable>
 

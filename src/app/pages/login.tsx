@@ -1,4 +1,4 @@
-import { Link, useRouter } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -7,11 +7,10 @@ export default function Login() {
     const router = useRouter();
     const  [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [display, handleDisplay] = useState('');
-    
-    
+    const {Email, Password} = useLocalSearchParams();
     
     return (
+        
         <View style={styles.container}>
             <Text style={styles.text}>This is the Login page</Text>
             <View style={styles.textFieldsContainer}>
@@ -34,11 +33,24 @@ export default function Login() {
 
             <Pressable style={styles.button} onPress={()=> {
 
-                if( email === '' ){
-                    alert("Please put something in the email field.");
+                if( email === Email && password === Password ){
+                    alert('Success logging in!');
+                    router.push('/pages/homepage');
+                }
+
+                else if (email !== Email) {
+                    alert('Wrong email');
+                }
+
+                else if(password !== Password){
+                    alert('Wrong password.');
+                }
+
+                else if (email !== Email && password !== Password){
+                    alert('Incorrect input.');
                 }
                 else{
-                    handleDisplay(email);
+                    alert('All fields are required.');
                 }
                 
             }}>
