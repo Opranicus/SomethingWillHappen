@@ -1,15 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { useState } from 'react';
+import { StyleSheet, Text, View, } from 'react-native';
+
 import Button from '../../../components/Button';
+import ImageDisplay from '../../../components/ImageDisplay';
+
 
 export default function Homepage() {
+
+    const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+    
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: 'images',
+            quality: 1,
+
+        });
+
+        if(!result.canceled){
+            setSelectedImage(result.assets[0].uri);
+        }
+        else{
+            alert("You did not pick an image.");
+        }
+    }
+
     return (
         <View style={styles.container}>
 
             <View style={styles.profileHolder}>
-                
+                <ImageDisplay selectedImage={selectedImage} />
             </View>
 
-            <Button label={'Choose a photo'}  /> 
+            <Button label={'Choose a photo'}  onPress={pickImage} /> 
 
             <View style={styles.cardContainer}>
                 <Text style={styles.bio}>BIO</Text>
