@@ -15,8 +15,8 @@ export default function Cards({label} : Props){
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#03c1f5',
-        width: 220,
-        height: 230,
+        width: 200,
+        height: 250,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#fff',

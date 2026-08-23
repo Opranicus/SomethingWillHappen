@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import { StyleSheet, Text, View, } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import Button from '../../../components/Button';
 import Cards from '../../../components/Cards';
@@ -18,32 +18,36 @@ export default function Homepage() {
 
         });
 
-        if(!result.canceled){
+        if (!result.canceled) {
             setSelectedImage(result.assets[0].uri);
         }
-        else{
+        else {
             alert("You did not pick an image.");
         }
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.scroll}>
+            <View style={styles.container}>
 
-            <View style={styles.profileHolder}>
-                <ImageDisplay selectedImage={selectedImage} />
-            </View>
-
-            <Button label={'Choose a photo'}  onPress={pickImage} /> 
-
-            <View style={styles.cardContainer}>
-                <Text style={styles.bio}>BIO</Text>
-
-                <View >
-                    <Cards label={'Name'} />
+                <View style={styles.profileHolder}>
+                    <ImageDisplay selectedImage={selectedImage} />
                 </View>
-            </View>
 
-        </View>
+                <Button label={'Choose a photo'} onPress={pickImage} />
+
+                <View style={styles.cardContainer}>
+                    <Text style={styles.bio}>BIO</Text>
+
+                    <View style={styles.cards}>
+                        <Cards label={'Name'} />
+                        <Cards label={'Location'} />
+                        <Cards label={'Hobbies'} />
+                    </View>
+                </View>
+
+            </View>
+        </ScrollView>
     )
 }
 
@@ -76,8 +80,22 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         borderRadius: 10,
         width: '90%',
-        height: '50%',
+        height: '100%',
         margin: 30,
+        padding: 10,
+    },
 
+    scroll: {
+        backgroundColor: '#080808',
+    
+    },
+
+    cards: {
+        flex: 1,
+        gap:30,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        marginTop: 20,
     }
 })
