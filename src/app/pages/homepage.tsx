@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 
 import Button from '../../../components/Button';
+import Cards from '../../../components/Cards';
 import ImageDisplay from '../../../components/ImageDisplay';
 
 
 export default function Homepage() {
 
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
-    
+
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: 'images',
@@ -36,6 +37,10 @@ export default function Homepage() {
 
             <View style={styles.cardContainer}>
                 <Text style={styles.bio}>BIO</Text>
+
+                <View >
+                    <Cards label={'Name'} />
+                </View>
             </View>
 
         </View>
