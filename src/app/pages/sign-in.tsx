@@ -1,6 +1,8 @@
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+
+import Button from '../../../components/Button';
 
 
 export default function SignUp() {
@@ -30,23 +32,21 @@ export default function SignUp() {
 
             </View>
 
-        <Pressable style={styles.buttonSign} onPress={()=> {
-            if (signemail === '' || signpassword === ''){
-                alert("All fields are required.");
-            }
+            <Button label={'Sign-Up'} onPress={() => {
+                if (signemail === '' || signpassword === '') {
+                    alert("All fields are required.");
+                }
 
-            else{
-                router.push({
-                    pathname: '/pages/login',
-                    params: {Email: signemail, Password: signpassword},
-                });
-            
-            }
-        }}>
-            <Text style={styles.textSign}>Sign-In</Text>
-        </Pressable>
+                else {
+                    router.push({
+                        pathname: '/pages/login',
+                        params: { Email: signemail, Password: signpassword },
+                    });
 
-        <Link style={styles.link} href='/pages/login'>Go back</Link>
+                }
+            }} />
+
+            <Link style={styles.link} href='/pages/login'>Go back</Link>
 
         </View>
     );
@@ -70,19 +70,6 @@ const styles = StyleSheet.create({
         color: '#220ce7',
         fontSize: 18,
         marginTop: 20
-    },
-
-    buttonSign: {
-        backgroundColor: '#03c1f5',
-        paddingHorizontal: 50,
-        padding: 20,
-        borderRadius: 10
-
-    },
-
-    textSign: {
-        fontSize: 24,
-        fontWeight: 'bold',
     },
 
     input: {

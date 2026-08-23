@@ -1,6 +1,8 @@
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+
+import Button from '../../../components/Button';
 
 
 export default function Login() {
@@ -12,7 +14,7 @@ export default function Login() {
     return (
         
         <View style={styles.container}>
-            <Text style={styles.text}>This is the Login page</Text>
+            <Text style={styles.text}>Login</Text>
             <View style={styles.textFieldsContainer}>
                 <TextInput
                 style={styles.input}
@@ -31,7 +33,7 @@ export default function Login() {
   
             </View>
 
-            <Pressable style={styles.button} onPress={()=> {
+            <Button label={'Login'}  onPress={()=> {
 
                 if( email === Email && password === Password ){
                     alert('Success logging in!');
@@ -53,16 +55,14 @@ export default function Login() {
                     alert('All fields are required.');
                 }
                 
-            }}>
-                <Text style={styles.buttonText}>Login</Text>
-            </Pressable>
+            }} />
 
             <View style={styles.link}>
                 <Text style={styles.textAcc}>Dont have an account? </Text>
                 <Link style={styles.href} href="/pages/sign-in">Sign-Up</Link>
             </View>
             
-            <Button color='#0ae1f4' title="Go back" onPress={() => router.push('/')} />
+            <Link href={'/'} style={styles.href}>Go back</Link>
         </View>
     );
 }
@@ -104,26 +104,11 @@ const styles = StyleSheet.create({
         color: '#160f0fa3'
     },
 
-    button: {
-        paddingHorizontal: 50,
-        marginBottom: 20,
-        backgroundColor: '#03c1f5',
-        padding: 10,
-        borderRadius: 10,
-
-    },
-
-    buttonText:{
-        color: '#358194',
-        fontSize: 24,
-    },
-
-
     link:{
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 5,
-        marginBottom: 23
+        margin: 20,
     }
 })
