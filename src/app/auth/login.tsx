@@ -59,7 +59,7 @@ export default function Login() {
 
             <View style={styles.link}>
                 <Text style={styles.textAcc}>Dont have an account? </Text>
-                <Link style={styles.href} href="/pages/sign-in">Sign-Up</Link>
+                <Link style={styles.href} href="/auth/sign-in">Sign-Up</Link>
             </View>
             
             <Link href={'/'} style={styles.href}>Go back</Link>

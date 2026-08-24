@@ -39,14 +39,14 @@ export default function SignUp() {
 
                 else {
                     router.push({
-                        pathname: '/pages/login',
+                        pathname: '/auth/login',
                         params: { Email: signemail, Password: signpassword },
                     });
 
                 }
             }} />
 
-            <Link style={styles.link} href='/pages/login'>Go back</Link>
+            <Link style={styles.link} href='/auth/login'>Go back</Link>
 
         </View>
     );

@@ -7,7 +7,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to this practice WebSite!</Text>
-      <Button color='#0ae1f4' title="Go to Login Page" onPress={() => router.push('/pages/login')} />
+      <Button color='#0ae1f4' title="Go to Login Page" onPress={() => router.push('/auth/login')} />
     </View>
   );
 }
