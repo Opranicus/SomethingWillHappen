@@ -5,10 +5,12 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Button from '../../../components/Button';
 import Cards from '../../../components/Cards';
 import ImageDisplay from '../../../components/ImageDisplay';
+import Input from '../../../components/Input';
 
 
 export default function Homepage() {
 
+    const [email, setEmail] = useState('');
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
     const pickImage = async () => {
@@ -40,9 +42,11 @@ export default function Homepage() {
                     <Text style={styles.bio}>BIO</Text>
 
                     <View style={styles.cards}>
-                        <Cards label={'Name'} />
-                        <Cards label={'Location'} />
-                        <Cards label={'Hobbies'} />
+                        <Cards label={'Name'}>
+                            <Input label='Email' value={email} onChange={setEmail} />
+                        </Cards>
+
+
                     </View>
                 </View>
 
@@ -87,12 +91,12 @@ const styles = StyleSheet.create({
 
     scroll: {
         backgroundColor: '#080808',
-    
+
     },
 
     cards: {
         flex: 1,
-        gap:30,
+        gap: 30,
         flexDirection: 'row',
         justifyContent: 'center',
         flexWrap: 'wrap',

@@ -1,13 +1,16 @@
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
     label: string;
+    children: React.ReactNode;
 }
 
-export default function Cards({label} : Props){
+export default function Cards({label, children} : Props){
     return(
         <View style={styles.card}>
             <Text style={styles.text}>{label}</Text>
+            {children}
         </View>
     )
 }
