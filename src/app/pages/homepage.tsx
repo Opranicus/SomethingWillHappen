@@ -6,12 +6,14 @@ import Button from '../../../components/Button';
 import Cards from '../../../components/Cards';
 import ImageDisplay from '../../../components/ImageDisplay';
 import Input from '../../../components/Input';
+import Modal from '../../../components/Modal';
 
 
 export default function Homepage() {
 
     const [email, setEmail] = useState('');
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -36,7 +38,15 @@ export default function Homepage() {
                     <ImageDisplay selectedImage={selectedImage} />
                 </View>
 
-                <Button label={'Choose a photo'} onPress={pickImage} />
+                <View style={styles.buttons}>
+                    <Button label={'Choose a photo'} onPress={pickImage} />
+                    <Button label={'Add a card'} onPress={() => setModalVisible(true)}/>
+                </View>
+
+                <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} >
+                    <Text>This is the content of this modal</Text>
+                </Modal>
+
 
                 <View style={styles.cardContainer}>
                     <Text style={styles.bio}>BIO</Text>
@@ -59,6 +69,12 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#080808',
         flex: 1,
+        alignItems: 'center',
+    },
+
+    buttons: {
+        gap: 20,
+        justifyContent: 'center',
         alignItems: 'center',
     },
 
