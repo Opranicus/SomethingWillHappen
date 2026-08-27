@@ -9,12 +9,16 @@ import Modal from '../../../components/Modal';
 
 
 export default function Homepage() {
-    const [title, setTitle] = useState('');
-    const [Email, setEmail] = useState('');
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [cardTitle, setCardTitle] = useState('');
-    const [inputs, setInputs] = useState<number[]>([]);
+
+    type inputData = {
+        id: number;
+        value: string;
+        title: string;
+    }
+    const [inputs, setInputs] = useState<inputData[]>([]);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,8 +36,14 @@ export default function Homepage() {
     }
 
     const addInputComponent = () => {
-        setInputs(prev => [...prev, prev.length]);
-    } 
+        setInputs(prev => [...prev,
+            {
+                id: Date.now(),
+                title: '',
+                value: '',
+            }
+        ]);
+    }; 
 
     return (
         <ScrollView style={styles.scroll}>
@@ -58,11 +68,23 @@ export default function Homepage() {
 
                     {inputs.map((input) => (
                         <Input 
-                        key={input}
-                        inputTitle={title}
-                        onChangeTitle={setTitle} 
-                        value={Email} 
-                        onChange={setEmail}
+                        key={input.id}
+                        inputTitle={input.title}
+                        value={input.value}
+
+                        onChangeTitle={(text) => {
+                            setInputs(prev => prev.map(item =>
+                                item.id === input.id ? {...item, title: text}
+                                : item
+                            ))
+                        }} 
+                        
+                        onChange={(text) => {
+                            setInputs(prev => prev.map(item => 
+                                item.id === input.id ? {...item, value: text}
+                                : item
+                            ))
+                        }}
                     />
                     ))}
                     
