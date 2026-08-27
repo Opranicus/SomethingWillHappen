@@ -3,15 +3,14 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import Button from '../../../components/Button';
-import Cards from '../../../components/Cards';
 import ImageDisplay from '../../../components/ImageDisplay';
 import Input from '../../../components/Input';
 import Modal from '../../../components/Modal';
 
 
 export default function Homepage() {
-
-    const [email, setEmail] = useState('');
+    const [title, setTitle] = useState('');
+    const [Email, setEmail] = useState('');
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -44,7 +43,7 @@ export default function Homepage() {
                 </View>
 
                 <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} >
-                    <Text>This is the content of this modal</Text>
+                    <Input inputTitle={title} onChangeTitle={setTitle} value={Email} onChange={setEmail}/>
                 </Modal>
 
 
@@ -52,10 +51,6 @@ export default function Homepage() {
                     <Text style={styles.bio}>BIO</Text>
 
                     <View style={styles.cards}>
-                        <Cards label={'Name'}>
-                            <Input label='Email' value={email} onChange={setEmail} />
-                        </Cards>
-
 
                     </View>
                 </View>
