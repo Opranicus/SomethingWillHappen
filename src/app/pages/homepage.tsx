@@ -14,6 +14,7 @@ export default function Homepage() {
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [cardTitle, setCardTitle] = useState('');
+    const [inputs, setInputs] = useState<number[]>([]);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -30,6 +31,10 @@ export default function Homepage() {
         }
     }
 
+    const addInputComponent = () => {
+        setInputs(prev => [...prev, prev.length]);
+    } 
+
     return (
         <ScrollView style={styles.scroll}>
             <View style={styles.container}>
@@ -43,8 +48,24 @@ export default function Homepage() {
                     <Button label={'Add a card'} onPress={() => setModalVisible(true)}/>
                 </View>
 
-                <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} cardTitle={cardTitle} setCardTitle={setCardTitle}>
-                    <Input inputTitle={title} onChangeTitle={setTitle} value={Email} onChange={setEmail}/>
+                <Modal 
+                    isVisible={modalVisible} 
+                    onClose={() => setModalVisible(false)} 
+                    cardTitle={cardTitle} 
+                    setCardTitle={setCardTitle}
+                    addCard={addInputComponent}
+                >
+
+                    {inputs.map((input) => (
+                        <Input 
+                        key={input}
+                        inputTitle={title}
+                        onChangeTitle={setTitle} 
+                        value={Email} 
+                        onChange={setEmail}
+                    />
+                    ))}
+                    
                 </Modal>
 
 
