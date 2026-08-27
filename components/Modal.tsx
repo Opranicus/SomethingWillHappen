@@ -1,13 +1,16 @@
-import { Pressable, Modal as RNModal, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Modal as RNModal, StyleSheet, Text, TextInput, View } from 'react-native';
 
 
 type Props = {
     isVisible: boolean;
+    cardTitle: string;
+    setCardTitle: (text: string) => void;
+    onPress?: () => void;
     onClose?: () => void;
     children: React.ReactNode;
 }
 
-export default function Modal({ isVisible, onClose, children }: Props) {
+export default function Modal({ isVisible,cardTitle,setCardTitle,onPress, onClose, children }: Props) {
     return (
         <RNModal
             animationType='fade'
@@ -17,15 +20,45 @@ export default function Modal({ isVisible, onClose, children }: Props) {
 
             <View style={styles.container}>
                 <View style={styles.contents}>
-                    <Pressable 
-                        onPress={onClose}
-                        style={styles.close}
-                    >
+                    <View style={styles.buttons}>
+                        <Pressable
+                            style={styles.add}
+                            onPress={onPress}
+                        >
+                            <Text style={styles.closeText}>Add an input</Text>
 
-                        <Text style={styles.closeText}>Close</Text>
-                    </Pressable>
-                    <Text style={{ color: '#fff' }}>Create A Card</Text>
-                    {children}
+                        </Pressable>
+
+                        <Pressable
+                            style={styles.create}
+                            onPress={onPress}
+                        >
+                            <Text style={styles.closeText}>Create Card</Text>
+
+                        </Pressable>
+
+                        <Pressable
+                            onPress={onClose}
+                            style={styles.close}
+                        >
+
+                            <Text style={styles.closeText}>Close</Text>
+                        </Pressable>
+                    </View>
+
+                    <View style={styles.mainContent}>
+                        <Text style={styles.cardText}>Create A Card</Text>
+                        <TextInput
+                            style={styles.cardInput}
+                            placeholder={'Enter Card Title:'}
+                            value={cardTitle}
+                            onChangeText={setCardTitle}
+                        />
+
+                        
+                        {children}
+                    </View>
+
                 </View>
             </View>
 
@@ -48,9 +81,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff',
         borderRadius: 10,
-    
-        alignItems: 'center',
-        justifyContent: 'center',
     },
 
     close: {
@@ -60,10 +90,55 @@ const styles = StyleSheet.create({
 
     },
 
+    add: {
+        backgroundColor: '#2fff00',
+        padding: 10,
+        borderRadius: 10,
+    },
+
+    buttons: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+        gap: 10,
+     
+    },
+
     closeText: {
         fontSize: 18,
         color: '#fff',
         fontWeight: 'bold',
+    },
+
+    mainContent: {
+        marginTop: 30,
+        alignItems: 'center',
+    },
+
+    cardText:{
+        color: '#fff',
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+
+    create: {
+        backgroundColor: '#219407',
+        padding: 10,
+        borderRadius: 10,
+    },
+
+    cardInput: {
+        width: '65%',
+        padding: 10,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#03c1f5',
+        borderRadius: 10,
+        marginTop: 10,
+        marginBottom: 10,
     }
 
 

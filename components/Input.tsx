@@ -13,7 +13,7 @@ export default function Input({inputTitle, value, onChange, onChangeTitle} : Pro
             <TextInput 
                 style={styles.inputHeader}
                 value={inputTitle}
-                placeholder={'Header'}
+                placeholder={'Enter title... '}
                 onChangeText={onChangeTitle}
                
             />
@@ -36,16 +36,20 @@ const styles = StyleSheet.create({
     },
 
     inputHeader: {
-        fontSize: 18,
+        fontSize: 16,
         color: '#fff',
         fontWeight: 'bold',
-        width: '100%',
+        width: '70%',
         padding: 10,
     },
 
     input: {
         width: '100%',
         padding: 10,
-        color: '#03c1f5'
+        color: '#03c1f5',
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#03c1f5',
+        borderRadius: 10,
     }
 })

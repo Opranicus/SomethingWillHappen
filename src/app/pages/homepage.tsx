@@ -13,6 +13,7 @@ export default function Homepage() {
     const [Email, setEmail] = useState('');
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [cardTitle, setCardTitle] = useState('');
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -42,7 +43,7 @@ export default function Homepage() {
                     <Button label={'Add a card'} onPress={() => setModalVisible(true)}/>
                 </View>
 
-                <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} >
+                <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} cardTitle={cardTitle} setCardTitle={setCardTitle}>
                     <Input inputTitle={title} onChangeTitle={setTitle} value={Email} onChange={setEmail}/>
                 </Modal>
 
