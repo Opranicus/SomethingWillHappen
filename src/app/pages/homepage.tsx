@@ -63,7 +63,7 @@ export default function Homepage() {
                     onClose={() => setModalVisible(false)} 
                     cardTitle={cardTitle} 
                     setCardTitle={setCardTitle}
-                    addCard={addInputComponent}
+                    addInput={addInputComponent}
                 >
 
                     {inputs.map((input) => (

@@ -6,12 +6,12 @@ type Props = {
     cardTitle: string;
     setCardTitle: (text: string) => void;
     onPress?: () => void;
-    addCard?: () => void;
+    addInput?: () => void;
     onClose?: () => void;
     children: React.ReactNode;
 }
 
-export default function Modal({ isVisible, cardTitle, setCardTitle, onPress, addCard, onClose, children }: Props) {
+export default function Modal({ isVisible, cardTitle, setCardTitle, onPress, addInput, onClose, children }: Props) {
     return (
         
         <RNModal
@@ -25,7 +25,7 @@ export default function Modal({ isVisible, cardTitle, setCardTitle, onPress, add
                     <View style={styles.buttons}>
                         <Pressable
                             style={styles.add}
-                            onPress={addCard}
+                            onPress={addInput}
                         >
                             <Text style={styles.closeText}>Add an input</Text>
 
