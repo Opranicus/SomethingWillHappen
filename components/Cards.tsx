@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
     label: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export default function Cards({label, children} : Props){

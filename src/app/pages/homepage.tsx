@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import Button from '../../../components/Button';
+import Cards from '../../../components/Cards';
 import ImageDisplay from '../../../components/ImageDisplay';
 import Input from '../../../components/Input';
 import Modal from '../../../components/Modal';
@@ -18,7 +19,14 @@ export default function Homepage() {
         value: string;
         title: string;
     }
+
+    type CardData = {
+        id: string;
+        title: string;
+    };
+
     const [inputs, setInputs] = useState<inputData[]>([]);
+    const [cards, setCards] = useState<CardData[]>([])
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -37,13 +45,22 @@ export default function Homepage() {
 
     const addInputComponent = () => {
         setInputs(prev => [...prev,
-            {
-                id: Date.now(),
-                title: '',
-                value: '',
-            }
+        {
+            id: Date.now(),
+            title: '',
+            value: '',
+        }
         ]);
-    }; 
+    };
+
+    const addNewCard = () => {
+        const newCard = {
+            id: Date.now().toString(),
+            title: `${cardTitle}`,
+        };
+
+        setCards(cards => [...cards, newCard]);
+    }
 
     return (
         <ScrollView style={styles.scroll}>
@@ -55,48 +72,53 @@ export default function Homepage() {
 
                 <View style={styles.buttons}>
                     <Button label={'Choose a photo'} onPress={pickImage} />
-                    <Button label={'Add a card'} onPress={() => setModalVisible(true)}/>
+                    <Button label={'Add a card'} onPress={() => setModalVisible(true)} />
                 </View>
 
-                <Modal 
-                    isVisible={modalVisible} 
-                    onClose={() => setModalVisible(false)} 
-                    cardTitle={cardTitle} 
+                <Modal
+                    isVisible={modalVisible}
+                    onClose={() => setModalVisible(false)}
+                    cardTitle={cardTitle}
                     setCardTitle={setCardTitle}
                     addInput={addInputComponent}
+                    addCard={addNewCard}
                 >
 
                     {inputs.map((input) => (
-                        <Input 
-                        key={input.id}
-                        inputTitle={input.title}
-                        value={input.value}
+                        <Input
+                            key={input.id}
+                            inputTitle={input.title}
+                            value={input.value}
 
-                        onChangeTitle={(text) => {
-                            setInputs(prev => prev.map(item =>
-                                item.id === input.id ? {...item, title: text}
-                                : item
-                            ))
-                        }} 
-                        
-                        onChange={(text) => {
-                            setInputs(prev => prev.map(item => 
-                                item.id === input.id ? {...item, value: text}
-                                : item
-                            ))
-                        }}
-                    />
+                            onChangeTitle={(text) => {
+                                setInputs(prev => prev.map(item =>
+                                    item.id === input.id ? { ...item, title: text }
+                                        : item
+                                ))
+                            }}
+
+                            onChange={(text) => {
+                                setInputs(prev => prev.map(item =>
+                                    item.id === input.id ? { ...item, value: text }
+                                        : item
+                                ))
+                            }}
+                        />
                     ))}
-                    
-                </Modal>
 
+                </Modal>
 
                 <View style={styles.cardContainer}>
                     <Text style={styles.bio}>BIO</Text>
 
-                    <View style={styles.cards}>
+                    {cards.map((card) => (
+                        <View key={card.id} style={styles.cards}>
+                            <Cards label={card.title}>
 
-                    </View>
+                            </Cards>
+                        </View>
+                    ))}
+
                 </View>
 
             </View>
