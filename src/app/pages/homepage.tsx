@@ -112,19 +112,19 @@ export default function Homepage() {
 
                 <View style={styles.cardContainer}>
                     <Text style={styles.bio}>BIO</Text>
-
-                    {cards.map((card) => (
-                        <View key={card.id} style={styles.cards}>
-                            <Cards label={card.title}>
-                                {card.cards.map((input) => (
-                                    <Text key={input.id}>
-                                        {input.title}: {input.value}
-                                    </Text>
-                                ))} 
-                            </Cards>
-                        </View>
-                    ))}
-
+                    <View style={styles.cards}>
+                        {cards.map((card) => (
+                            <View key={card.id}>
+                                <Cards label={card.title}>
+                                    {card.cards.map((input) => (
+                                        <Text key={input.id}>
+                                            {input.title}: {input.value}
+                                        </Text>
+                                    ))}
+                                </Cards>
+                            </View>
+                        ))}
+                    </View>
                 </View>
 
             </View>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         borderRadius: 10,
         width: '90%',
-        height: '100%',
+        height: 'auto',
         margin: 30,
         padding: 10,
     },
@@ -179,10 +179,13 @@ const styles = StyleSheet.create({
 
     cards: {
         flex: 1,
-        gap: 30,
         flexDirection: 'row',
-        justifyContent: 'center',
         flexWrap: 'wrap',
-        marginTop: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 30,
+        marginTop: 10,
     }
+
+
 })
