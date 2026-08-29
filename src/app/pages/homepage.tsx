@@ -119,7 +119,7 @@ export default function Homepage() {
                             <View key={card.id}>
                                 <Cards label={card.title}>
                                     {card.cards.map((input) => (
-                                        <Text key={input.id}>
+                                        <Text key={input.id} style={styles.renText}>
                                             {input.title}: {input.value}
                                         </Text>
                                     ))}
@@ -186,6 +186,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 30,
+        marginTop: 10,
+    },
+
+    renText: {
+        fontSize: 18,
         marginTop: 10,
     }
 
