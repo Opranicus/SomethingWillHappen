@@ -23,6 +23,7 @@ export default function Homepage() {
     type CardData = {
         id: string;
         title: string;
+        cards: inputData[];
     };
 
     const [inputs, setInputs] = useState<inputData[]>([]);
@@ -57,6 +58,7 @@ export default function Homepage() {
         const newCard = {
             id: Date.now().toString(),
             title: `${cardTitle}`,
+            cards: inputs,
         };
 
         setCards(cards => [...cards, newCard]);
@@ -114,15 +116,11 @@ export default function Homepage() {
                     {cards.map((card) => (
                         <View key={card.id} style={styles.cards}>
                             <Cards label={card.title}>
-                                {inputs.map((input) => (
+                                {card.cards.map((input) => (
                                     <Text key={input.id}>
-                                        {input.title}, 
-                                        {input.value}
+                                        {input.title}: {input.value}
                                     </Text>
-                                    
                                 ))} 
-
-                                
                             </Cards>
                         </View>
                     ))}
