@@ -114,7 +114,15 @@ export default function Homepage() {
                     {cards.map((card) => (
                         <View key={card.id} style={styles.cards}>
                             <Cards label={card.title}>
+                                {inputs.map((input) => (
+                                    <Text key={input.id}>
+                                        {input.title}, 
+                                        {input.value}
+                                    </Text>
+                                    
+                                ))} 
 
+                                
                             </Cards>
                         </View>
                     ))}
