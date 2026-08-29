@@ -62,6 +62,8 @@ export default function Homepage() {
         };
 
         setCards(cards => [...cards, newCard]);
+        setInputs([]);
+        setCardTitle('');
     }
 
     return (
