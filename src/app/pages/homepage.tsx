@@ -14,6 +14,7 @@ export default function Homepage() {
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
+    const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
     const [cardTitle, setCardTitle] = useState('');
 
     type inputData = {
@@ -122,10 +123,9 @@ export default function Homepage() {
                 <EditModal
                     isVisible={editModalVisible}
                     onClose={() => setEditModalVisible(false)}
-                >
-                    <Text>Title: {cardTitle}</Text>
-                </EditModal>
-
+                    card={selectedCard}
+                />
+                    
                 <View style={styles.cardContainer}>
                     <Text style={styles.bio}>BIO</Text>
                     <View style={styles.cards}>
@@ -133,7 +133,11 @@ export default function Homepage() {
                             <View key={card.id}>
                                 <Cards 
                                 label={card.title}
-                                update={() => setEditModalVisible(true)}
+                                update={() => {
+                                    setEditModalVisible(true);
+                                    setSelectedCard(card);
+                                }}
+                                    
                                 remove={() => deleteCard(card.id)}
                                 >
                                     {card.cards.map((input) => (

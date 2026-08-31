@@ -1,12 +1,28 @@
-import { Pressable, Modal as RNModal, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Pressable, Modal as RNModal, StyleSheet, Text, TextInput, View } from 'react-native';
+
+type inputData = {
+    id: number;
+    value: string;
+    title: string;
+}
+
+type CardData = {
+    id: string;
+    title: string;
+    cards: inputData[];
+};
 
 type Props = {
     isVisible: boolean;
     onClose?: () => void;
-    children: React.ReactNode;
+    card: CardData | null;
 }
 
-export default function EditModal({ isVisible, onClose, children }: Props) {
+export default function EditModal({ isVisible, onClose, card }: Props) {
+
+    const [inputs, setInputs] = useState<inputData[]>([]);
+
     return (
         <RNModal
             animationType='fade'
@@ -23,8 +39,18 @@ export default function EditModal({ isVisible, onClose, children }: Props) {
                             <Text style={{ color: '#fff', textAlign: 'center' }}>Close</Text>
                         </Pressable>
                     </View>
+                    <Text style={styles.title}>Title: {card?.title}</Text>
+                    {card?.cards.map((input) => (
+                        <View key={input.id}>
+                            <Text>
+                                {input.title}
+                            </Text>
 
-                    {children}
+                            <TextInput
+                                value={input.value}
+                            />
+                        </View>
+                    ))}
                 </View>
             </View>
         </RNModal>
@@ -58,7 +84,14 @@ const styles = StyleSheet.create({
 
     button: {
         alignItems: 'flex-end',
-        
+
+    },
+
+    title: {
+        color: '#fff',
+        fontSize: 24,
+        textAlign: 'center',
+        fontWeight: 'bold',
     }
 
 })
