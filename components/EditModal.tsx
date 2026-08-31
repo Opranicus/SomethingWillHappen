@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, Modal as RNModal, StyleSheet, Text, TextInput, View } from 'react-native';
 
 type inputData = {
@@ -17,11 +17,18 @@ type Props = {
     isVisible: boolean;
     onClose?: () => void;
     card: CardData | null;
+    
+    onUpdate: (inputs: inputData[]) => void;
 }
 
-export default function EditModal({ isVisible, onClose, card }: Props) {
+export default function EditModal({ isVisible, onClose, card, onUpdate }: Props) {
+    const [updatedText, setUpdatedText] = useState<inputData[]>([]);
 
-    const [inputs, setInputs] = useState<inputData[]>([]);
+    useEffect(() => {
+        if (card){
+            setUpdatedText(card.cards);
+        }
+    }, [card]);
 
     return (
         <RNModal
@@ -40,21 +47,35 @@ export default function EditModal({ isVisible, onClose, card }: Props) {
                         </Pressable>
                     </View>
                     <Text style={styles.title}>Title: {card?.title}</Text>
-                    {card?.cards.map((input) => (
+
+                    {updatedText.map((input) => (
                         <View key={input.id} style={styles.renderedValue}>
                             <Text style={{ color: '#fff', fontSize: 18 }}>
                                 {input.title}:
                             </Text>
 
                             <TextInput
-                                style={{ color: '#fff', fontSize: 18 }}
+                                style={styles.input}
                                 value={input.value}
+                                onChangeText={(text) => 
+                                    setUpdatedText(prev => 
+                                        prev.map(item => 
+                                            item.id === input.id
+                                            ?{...item, value: text}
+                                            :item
+                                        )
+                                    )
+                                }
+                                
                             />
                         </View>
                     ))}
                     <View style={styles.saveContainer}>
                         <Pressable
                             style={styles.saveBtn}
+                            onPress={() => {
+                                onUpdate(updatedText);
+                            }}
                         >
                             <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Update</Text>
                         </Pressable>
@@ -124,6 +145,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         marginBottom: 20,
+    },
+
+    input: {
+        color: '#090909', 
+        fontSize: 18, 
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 5,
     }
 
 })

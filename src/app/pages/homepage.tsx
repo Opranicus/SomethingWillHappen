@@ -70,90 +70,102 @@ export default function Homepage() {
     }
 
     const deleteCard = (id: string) => {
-        setCards((prevCards) => 
+        setCards((prevCards) =>
             prevCards.filter((card) => card.id !== id));
     };
 
-    return (
-        <ScrollView style={styles.scroll}>
-            <View style={styles.container}>
+    const update = (updatedText: inputData[]) => {
+        setCards(prev => prev.map(card =>
+            card.id === selectedCard?.id ? {
+                ...card,
+                cards: updatedText
+            }
+                : card    
+        )
+    );
+};
 
-                <View style={styles.profileHolder}>
-                    <ImageDisplay selectedImage={selectedImage} />
-                </View>
+return (
+    <ScrollView style={styles.scroll}>
+        <View style={styles.container}>
 
-                <View style={styles.buttons}>
-                    <Button label={'Choose a photo'} onPress={pickImage} />
-                    <Button label={'Add a card'} onPress={() => setModalVisible(true)} />
-                </View>
+            <View style={styles.profileHolder}>
+                <ImageDisplay selectedImage={selectedImage} />
+            </View>
 
-                <Modal
-                    isVisible={modalVisible}
-                    onClose={() => setModalVisible(false)}
-                    cardTitle={cardTitle}
-                    setCardTitle={setCardTitle}
-                    addInput={addInputComponent}
-                    addCard={addNewCard}
-                >
+            <View style={styles.buttons}>
+                <Button label={'Choose a photo'} onPress={pickImage} />
+                <Button label={'Add a card'} onPress={() => setModalVisible(true)} />
+            </View>
 
-                    {inputs.map((input) => (
-                        <Input
-                            key={input.id}
-                            inputTitle={input.title}
-                            value={input.value}
+            <Modal
+                isVisible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                cardTitle={cardTitle}
+                setCardTitle={setCardTitle}
+                addInput={addInputComponent}
+                addCard={addNewCard}
+            >
 
-                            onChangeTitle={(text) => {
-                                setInputs(prev => prev.map(item =>
-                                    item.id === input.id ? { ...item, title: text }
-                                        : item
-                                ))
-                            }}
+                {inputs.map((input) => (
+                    <Input
+                        key={input.id}
+                        inputTitle={input.title}
+                        value={input.value}
 
-                            onChange={(text) => {
-                                setInputs(prev => prev.map(item =>
-                                    item.id === input.id ? { ...item, value: text }
-                                        : item
-                                ))
-                            }}
-                        />
-                    ))}
+                        onChangeTitle={(text) => {
+                            setInputs(prev => prev.map(item =>
+                                item.id === input.id ? { ...item, title: text }
+                                    : item
+                            ))
+                        }}
 
-                </Modal>
+                        onChange={(text) => {
+                            setInputs(prev => prev.map(item =>
+                                item.id === input.id ? { ...item, value: text }
+                                    : item
+                            ))
+                        }}
+                    />
+                ))}
 
-                <EditModal
-                    isVisible={editModalVisible}
-                    onClose={() => setEditModalVisible(false)}
-                    card={selectedCard}
-                />
-                    
-                <View style={styles.cardContainer}>
-                    <Text style={styles.bio}>BIO</Text>
-                    <View style={styles.cards}>
-                        {cards.map((card) => (
-                            <View key={card.id}>
-                                <Cards 
+            </Modal>
+
+            <EditModal
+                isVisible={editModalVisible}
+                onClose={() => setEditModalVisible(false)}
+                card={selectedCard}
+                onUpdate={update}
+            />
+
+            <View style={styles.cardContainer}>
+                <Text style={styles.bio}>BIO</Text>
+                <View style={styles.cards}>
+                    {cards.map((card) => (
+                        <View key={card.id}>
+                            <Cards
                                 label={card.title}
                                 update={() => {
                                     setEditModalVisible(true);
                                     setSelectedCard(card);
                                 }}
-                                    
-                                remove={() => deleteCard(card.id)}
-                                >
-                                    {card.cards.map((input) => (
-                                        <Text key={input.id} style={styles.renText}>
-                                            {input.title}: {input.value}
-                                        </Text>
-                                    ))}
-                                </Cards>
-                            </View>
-                        ))}
-                    </View>
-                </View>
 
+                                remove={() => deleteCard(card.id)}
+                            >
+                                {card.cards.map((input) => (
+                                    <Text key={input.id} style={styles.renText}>
+                                        {input.title}: {input.value}
+                                    </Text>
+                                ))}
+                            </Cards>
+                        </View>
+                    ))}
+                </View>
             </View>
-        </ScrollView>
-    )
+
+        </View>
+    </ScrollView>
+)
 }
 
 const styles = StyleSheet.create({
