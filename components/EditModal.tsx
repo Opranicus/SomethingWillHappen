@@ -41,16 +41,25 @@ export default function EditModal({ isVisible, onClose, card }: Props) {
                     </View>
                     <Text style={styles.title}>Title: {card?.title}</Text>
                     {card?.cards.map((input) => (
-                        <View key={input.id}>
-                            <Text>
-                                {input.title}
+                        <View key={input.id} style={styles.renderedValue}>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>
+                                {input.title}:
                             </Text>
 
                             <TextInput
+                                style={{ color: '#fff', fontSize: 18 }}
                                 value={input.value}
                             />
                         </View>
                     ))}
+                    <View style={styles.saveContainer}>
+                        <Pressable
+                            style={styles.saveBtn}
+                        >
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Update</Text>
+                        </Pressable>
+                    </View>
+
                 </View>
             </View>
         </RNModal>
@@ -92,6 +101,29 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: 'center',
         fontWeight: 'bold',
+    },
+
+    renderedValue: {
+        flexDirection: "row",
+        gap: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+
+    saveBtn: {
+        backgroundColor: "#04f208",
+        padding: 5,
+        borderRadius: 10,
+        width: 150,
+    },
+
+    saveContainer: {
+        flex: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginBottom: 20,
     }
 
 })
