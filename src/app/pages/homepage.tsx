@@ -68,6 +68,11 @@ export default function Homepage() {
         setCardTitle('');
     }
 
+    const deleteCard = (id: string) => {
+        setCards((prevCards) => 
+            prevCards.filter((card) => card.id !== id));
+    };
+
     return (
         <ScrollView style={styles.scroll}>
             <View style={styles.container}>
@@ -129,6 +134,7 @@ export default function Homepage() {
                                 <Cards 
                                 label={card.title}
                                 update={() => setEditModalVisible(true)}
+                                remove={() => deleteCard(card.id)}
                                 >
                                     {card.cards.map((input) => (
                                         <Text key={input.id} style={styles.renText}>
