@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import Button from '../../../components/Button';
 import Cards from '../../../components/Cards';
+import EditModal from '../../../components/EditModal';
 import ImageDisplay from '../../../components/ImageDisplay';
 import Input from '../../../components/Input';
 import Modal from '../../../components/Modal';
@@ -12,6 +13,7 @@ import Modal from '../../../components/Modal';
 export default function Homepage() {
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
     const [cardTitle, setCardTitle] = useState('');
 
     type inputData = {
@@ -112,12 +114,22 @@ export default function Homepage() {
 
                 </Modal>
 
+                <EditModal
+                    isVisible={editModalVisible}
+                    onClose={() => setEditModalVisible(false)}
+                >
+                    <Text>Title: {cardTitle}</Text>
+                </EditModal>
+
                 <View style={styles.cardContainer}>
                     <Text style={styles.bio}>BIO</Text>
                     <View style={styles.cards}>
                         {cards.map((card) => (
                             <View key={card.id}>
-                                <Cards label={card.title}>
+                                <Cards 
+                                label={card.title}
+                                update={() => setEditModalVisible(true)}
+                                >
                                     {card.cards.map((input) => (
                                         <Text key={input.id} style={styles.renText}>
                                             {input.title}: {input.value}
